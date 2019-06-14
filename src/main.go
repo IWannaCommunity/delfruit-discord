@@ -1,13 +1,19 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
+
 	"github.com/bwmarrin/discordgo"
 )
 
 const delfruitAPIurl = "https://delicious-fruit.com/api/game.php"
+
+var delfruitAPIkey string
 
 type APIResponse struct {
 	Success bool `json:"success"`
@@ -31,7 +37,37 @@ type APIResponse struct {
 		CreatorReview string      `json:"creator_review"`
 	} `json:"game"`
 }
-func game(resp APIResponse) *discordgo.MessageEmbed {
+
+func single(identifier, t string) *discordgo.MessageEmbed {
+	f := url.Values{}
+	f.Add("method", "single")
+	f.Add("api_key", delfruitAPIkey)
+	switch t {
+	case "": // random
+		break
+	default:
+		f.Add(t, identifier)
+	}
+
+	r, err := http.PostForm(delfruitAPIurl, f)
+	if err != nil {
+		return nil
+	}
+	defer r.Body.Close()
+
+	var s APIResponse
+	dec := json.NewDecoder(r.Body)
+	err = dec.Decode(&s)
+	if err != nil {
+		return nil
+	}
+	if s.Game.Name == "" {
+		return nil
+	}
+
+	return format(s)
+}
+
 func format(resp APIResponse) *discordgo.MessageEmbed {
 	rating, _ := strconv.ParseFloat(resp.Game.Rating, 64)
 	rating /= 10
