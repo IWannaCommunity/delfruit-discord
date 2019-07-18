@@ -81,7 +81,7 @@ func format(resp APIResponse) *discordgo.MessageEmbed {
 	link := strings.Join([]string{"\n\nDownload Link \n<", resp.Game.URL, ">"}, "")
 
 	if collab {
-		authorPrefix := "Authors: "
+		authorPrefix = "Authors: "
 	}
 
 	if len(resp.Screenshots) > 0 {
