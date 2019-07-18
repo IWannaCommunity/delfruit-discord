@@ -14,6 +14,14 @@ import (
 const delfruitAPIurl = "https://delicious-fruit.com/api/game.php"
 
 var delfruitAPIkey string
+var (
+	discord             *discordgo.Session
+	delfruitAPIkey      string
+	discordAPIkey       string
+	notificationChannel string
+	notificationGuild   string
+	privilegedRole      string
+)
 
 type APIResponse struct {
 	Success bool `json:"success"`
