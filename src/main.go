@@ -14,14 +14,13 @@ import (
 
 const delfruitAPIurl = "https://delicious-fruit.com/api/game.php"
 
-var delfruitAPIkey string
 var (
-	discord             *discordgo.Session
-	delfruitAPIkey      string
-	discordAPIkey       string
-	notificationChannel string
-	notificationGuild   string
-	privilegedRole      string
+	discord           *discordgo.Session
+	delfruitAPIkey    string
+	discordAPIkey     string
+	subscribedChannel string
+	notificationGuild string
+	privilegedRole    string
 )
 
 type APIResponse struct {
@@ -49,7 +48,7 @@ type APIResponse struct {
 
 func main() {
 	delfruitAPIkey = os.Getenv("DELFRUIT_API_KEY")
-	notificationChannel = os.Getenv("DISCORD_NOTIFICATION_CHANNEL")
+	subscribedChannel = os.Getenv("DISCORD_SUBSCRIBED_CHANNEL")
 	privilegedRole = os.Getenv("DISCORD_PRIVILEGED_ROLE")
 	discordAPIkey = os.Getenv("DISCORD_API_KEY")
 	notificationGuild = os.Getenv("DISCORD_NOTIFICATION_GUILD")
