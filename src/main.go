@@ -54,7 +54,7 @@ func main() {
 		fmt.Println(err)
 		panic("Invalid Discord API Key")
 	}
-	discord.AddHandler(status)
+	discord.AddHandler(publish)
 	discord.Open()
 	<-make(chan struct{})
 }

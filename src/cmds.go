@@ -7,7 +7,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-func status(s *discordgo.Session, j *discordgo.MessageCreate) {
+func publish(s *discordgo.Session, j *discordgo.MessageCreate) {
 	if !j.Author.Bot { // check if not a bot
 		member, err := discord.State.Member(j.GuildID, j.Author.ID)
 		published := *new([]*discordgo.MessageEmbed)
