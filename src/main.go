@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 
@@ -44,6 +45,21 @@ type APIResponse struct {
 		DateCreated   string      `json:"date_created"`
 		CreatorReview string      `json:"creator_review"`
 	} `json:"game"`
+}
+
+func main() {
+	delfruitAPIkey = os.Getenv("DELFRUIT_API_KEY")
+	notificationChannel = os.Getenv("DISCORD_NOTIFICATION_CHANNEL")
+	privilegedRole = os.Getenv("DISCORD_PRIVILEGED_ROLE")
+	discordAPIkey = os.Getenv("DISCORD_API_KEY")
+	notificationGuild = os.Getenv("DISCORD_NOTIFICATION_GUILD")
+
+	err := *new(error)
+	discord, err = discordgo.New("Bot " + discordAPIkey)
+	if err != nil {
+		fmt.Println(err)
+		panic("Invalid Discord API Key")
+	}
 }
 
 func single(identifier, t string) *discordgo.MessageEmbed {
