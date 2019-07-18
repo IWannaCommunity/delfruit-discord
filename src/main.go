@@ -59,6 +59,9 @@ func main() {
 		fmt.Println(err)
 		panic("Invalid Discord API Key")
 	}
+	discord.AddHandler(status)
+	discord.Open()
+	<-make(chan struct{})
 }
 
 func single(identifier, t string) *discordgo.MessageEmbed {
