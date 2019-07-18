@@ -219,6 +219,9 @@ func status(s *discordgo.Session, j *discordgo.MessageCreate) {
 						s.ChannelMessageSendEmbed(subscribedChannel, embed)
 					}
 					break
+				} else {
+					s.ChannelMessageSend(j.ChannelID, "Parameters were not supplied.")
+					return
 				}
 			} else {
 				args := strings.Split(j.Content, " ")
