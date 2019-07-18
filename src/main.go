@@ -164,12 +164,10 @@ func amend(embed *discordgo.MessageEmbed, status string) *discordgo.MessageEmbed
 
 	case "release":
 		return NewEmbed().
-			SetTitle(strings.Join([]string{"[Update] ", embed.Title}, "")).
-			AddField(embed.Fields[0].Name, embed.Fields[0].Value).
+			SetTitle(strings.Join([]string{"[Release] ", embed.Title}, "")).
+			AddField(embed.Fields[0].Name, strings.Replace(embed.Fields[0].Value, "\n\n`There are no reviews for this game.`", " ", 1)).
 			SetURL(embed.URL).
-			SetThumbnail(embed.Thumbnail.URL).
-			SetFooter(embed.Footer.Text).
-			SetColor(0xffff00).MessageEmbed
+			SetColor(0x00ff2b).MessageEmbed
 
 	case "featured":
 		return NewEmbed().
