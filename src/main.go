@@ -150,3 +150,37 @@ func format(resp APIResponse) *discordgo.MessageEmbed {
 
 	return embed
 }
+
+func amend(embed *discordgo.MessageEmbed, status string) *discordgo.MessageEmbed {
+	switch status {
+	case "update":
+		return NewEmbed().
+			SetTitle(strings.Join([]string{"[Update] ", embed.Title}, "")).
+			AddField(embed.Fields[0].Name, embed.Fields[0].Value).
+			SetURL(embed.URL).
+			SetThumbnail(embed.Thumbnail.URL).
+			SetFooter(embed.Footer.Text).
+			SetColor(0xffff00).MessageEmbed
+
+	case "release":
+		return NewEmbed().
+			SetTitle(strings.Join([]string{"[Update] ", embed.Title}, "")).
+			AddField(embed.Fields[0].Name, embed.Fields[0].Value).
+			SetURL(embed.URL).
+			SetThumbnail(embed.Thumbnail.URL).
+			SetFooter(embed.Footer.Text).
+			SetColor(0xffff00).MessageEmbed
+
+	case "featured":
+		return NewEmbed().
+			SetTitle(strings.Join([]string{"[Featured] ", embed.Title}, "")).
+			AddField(embed.Fields[0].Name, embed.Fields[0].Value).
+			SetURL(embed.URL).
+			SetThumbnail(embed.Thumbnail.URL).
+			SetFooter(embed.Footer.Text).
+			SetColor(0xffaa00).MessageEmbed
+	}
+
+	// todo: handle default case
+	return nil
+}
